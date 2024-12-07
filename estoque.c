@@ -40,10 +40,26 @@ void exibirLocalizacoes(Mercado estoque) {
 
     for (int i = 0; i < 7; i++) {
         printf("Corredor %c:\n", nomes_corredores[i]);
-        printf("  Superior Direita: %s\n", corredores[i].Superior_Direita.localizacao);
-        printf("  Inferior Direita: %s\n", corredores[i].Inferior_Direita.localizacao);
-        printf("  Superior Esquerda: %s\n", corredores[i].Superior_Esquerda.localizacao);
-        printf("  Inferior Esquerda: %s\n", corredores[i].Inferior_Esquerda.localizacao);
+
+        printf("  Superior Direita: %s | Produto: %s | Quantidade: %d\n",
+               corredores[i].Superior_Direita.localizacao,
+               corredores[i].Superior_Direita.Produto_armazenado.nome,
+               corredores[i].Superior_Direita.Produto_armazenado.quantidade);
+
+        printf("  Inferior Direita: %s | Produto: %s | Quantidade: %d\n",
+               corredores[i].Inferior_Direita.localizacao,
+               corredores[i].Inferior_Direita.Produto_armazenado.nome,
+               corredores[i].Inferior_Direita.Produto_armazenado.quantidade);
+
+        printf("  Superior Esquerda: %s | Produto: %s | Quantidade: %d\n",
+               corredores[i].Superior_Esquerda.localizacao,
+               corredores[i].Superior_Esquerda.Produto_armazenado.nome,
+               corredores[i].Superior_Esquerda.Produto_armazenado.quantidade);
+
+        printf("  Inferior Esquerda: %s | Produto: %s | Quantidade: %d\n",
+               corredores[i].Inferior_Esquerda.localizacao,
+               corredores[i].Inferior_Esquerda.Produto_armazenado.nome,
+               corredores[i].Inferior_Esquerda.Produto_armazenado.quantidade);
     }
 }
 
