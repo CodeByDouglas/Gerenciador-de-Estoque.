@@ -7,7 +7,7 @@ typedef struct {
 } produto;
 
 typedef struct {
-    char localizacao[10]; // Aumentei o tamanho para evitar estouro
+    char localizacao[10];
     produto Produto_armazenado;
 } prateleira;
 
@@ -28,9 +28,28 @@ typedef struct {
     corredor corredor_G;
 } Mercado;
 
+void exibirLocalizacoes(Mercado estoque) {
+    // Função para exibir todas as localizações do mercado
+    corredor corredores[7] = {
+        estoque.corredor_A, estoque.corredor_B, estoque.corredor_C,
+        estoque.corredor_D, estoque.corredor_E, estoque.corredor_F,
+        estoque.corredor_G
+    };
+
+    char nomes_corredores[7] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+
+    for (int i = 0; i < 7; i++) {
+        printf("Corredor %c:\n", nomes_corredores[i]);
+        printf("  Superior Direita: %s\n", corredores[i].Superior_Direita.localizacao);
+        printf("  Inferior Direita: %s\n", corredores[i].Inferior_Direita.localizacao);
+        printf("  Superior Esquerda: %s\n", corredores[i].Superior_Esquerda.localizacao);
+        printf("  Inferior Esquerda: %s\n", corredores[i].Inferior_Esquerda.localizacao);
+    }
+}
+
 int main() {
     produto Produto_inicial;
-    Produto_inicial.quantidade = 1;
+    Produto_inicial.quantidade = 0;
     strcpy(Produto_inicial.nome, "Nulo");
 
     prateleira Prateleira_Inicial;
@@ -38,33 +57,34 @@ int main() {
     Prateleira_Inicial.Produto_armazenado = Produto_inicial;
 
     corredor corredor_inicial;
-    corredor_inicial.Superior_Direita = Prateleira_Inicial;
-    corredor_inicial.Inferior_Direita = Prateleira_Inicial;
-    corredor_inicial.Inferior_Esquerda = Prateleira_Inicial;
-    corredor_inicial.Superior_Esquerda = Prateleira_Inicial;
-
     Mercado estoque;
-    estoque.corredor_A = corredor_inicial;
-    estoque.corredor_B = corredor_inicial;
-    estoque.corredor_C = corredor_inicial;
-    estoque.corredor_D = corredor_inicial;
-    estoque.corredor_E = corredor_inicial;
-    estoque.corredor_F = corredor_inicial;
-    estoque.corredor_G = corredor_inicial;
 
-    char Letras[14] = "ABCDEFG";
+    char Letras[7] = "ABCDEFG";
 
     for (int i = 0; i < 7; i++) {
-    char numero_loque = i + '0'; // Converte o inteiro i para o caractere correspondente
+        for (int a = 0; a < 4; a++) {
+            char numero_loque = (a+1) + '0'; // Converte o índice para caractere
+            Prateleira_Inicial.localizacao[0] = Letras[i];
+            Prateleira_Inicial.localizacao[1] = numero_loque;
+            Prateleira_Inicial.localizacao[2] = '\0'; // Garante que a string seja válida
 
-    Prateleira_Inicial.localizacao[0] = Letras[i]; // Modifica o primeiro caractere
-    Prateleira_Inicial.localizacao[1] = numero_loque; // Define o segundo caractere como número convertido
-    Prateleira_Inicial.localizacao[2] = '\0'; // Garante que seja uma string válida (terminada em '\0')
+            if (a == 0) corredor_inicial.Superior_Direita = Prateleira_Inicial;
+            if (a == 1) corredor_inicial.Inferior_Direita = Prateleira_Inicial;
+            if (a == 2) corredor_inicial.Superior_Esquerda = Prateleira_Inicial;
+            if (a == 3) corredor_inicial.Inferior_Esquerda = Prateleira_Inicial;
+        }
 
-    // Exibe o valor atualizado
-    printf("Localização: %s\n", Prateleira_Inicial.localizacao);
-    
+        if (i == 0) estoque.corredor_A = corredor_inicial;
+        if (i == 1) estoque.corredor_B = corredor_inicial;
+        if (i == 2) estoque.corredor_C = corredor_inicial;
+        if (i == 3) estoque.corredor_D = corredor_inicial;
+        if (i == 4) estoque.corredor_E = corredor_inicial;
+        if (i == 5) estoque.corredor_F = corredor_inicial;
+        if (i == 6) estoque.corredor_G = corredor_inicial;
     }
+
+    // Exibir todas as localizações
+    exibirLocalizacoes(estoque);
 
     return 0;
 }
