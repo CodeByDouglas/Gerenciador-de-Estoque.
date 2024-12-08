@@ -65,7 +65,7 @@ void ExibirEstoque(Estoque Mercado) {
     }
 }
 
-void Verificar_produto(Estoque Mercado){
+void PesquisarEstoque(Estoque Mercado){
     
     char produto[50];
     int verificador=0;
@@ -76,7 +76,7 @@ void Verificar_produto(Estoque Mercado){
     };
    
     
-    printf("Qual produto deseja verificar em Mercado?\n");
+    printf("Qual produto deseja pesquisar?\n");
     getchar();
     fgets(produto, sizeof(produto), stdin);
     
@@ -208,8 +208,8 @@ void Menu(Estoque Mercado){
     while (opcao<1 || opcao>4){
         while (opcao<1 || opcao>4){
                     printf("\n------MENU DO GERENCIADOR DE ESTOQUE------\n");
-            printf("      1-Exibir todos os produtos em Mercado.\n");
-            printf("      2-Verificar a localização e quantidade de um produto.\n");
+            printf("      1-Exibir todos os produtos do estoque.\n");
+            printf("      2-Pesquisar produto.\n");
             printf("      3-Inserir produto\n");
             printf("      4-Remover produto\n");
 
@@ -223,7 +223,7 @@ void Menu(Estoque Mercado){
         };
         
         if (opcao==2){
-            Verificar_produto(Mercado);
+            PesquisarEstoque(Mercado);
             opcao = Menu_Replay(opcao);
         };
         if (opcao==3){
