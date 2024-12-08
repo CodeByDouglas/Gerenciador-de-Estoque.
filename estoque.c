@@ -65,74 +65,117 @@ void ExibirEstoque(Estoque Mercado) {
     }
 }
 
-void PesquisarEstoque(Estoque Mercado){
-    
-    char produto[50];
-    int verificador=0;
+void PesquisarEstoque(Estoque Mercado) {
+    char input[50];
+    int verificador = 0;
+    int opcao = 0;
+
     corredor corredores[7] = {
         Mercado.corredor_A, Mercado.corredor_B, Mercado.corredor_C,
         Mercado.corredor_D, Mercado.corredor_E, Mercado.corredor_F,
         Mercado.corredor_G
     };
-   
-    
-    printf("Qual produto deseja pesquisar?\n");
-    getchar();
-    fgets(produto, sizeof(produto), stdin);
-    
-    size_t len = strlen(produto);
-    if (len > 0 && produto[len - 1] == '\n') {
-        produto[len - 1] = '\0';
+
+    printf("Você deseja buscar por nome ou endereço?\n");
+    printf("1-Nome\n2-Endereço\n");
+    scanf("%d", &opcao);
+
+    if (opcao == 1) {
+        printf("Qual produto deseja pesquisar?\n");
+        getchar();
+        fgets(input, sizeof(input), stdin);
+
+        size_t len = strlen(input);
+        if (len > 0 && input[len - 1] == '\n') {
+            input[len - 1] = '\0';
+        }
+
+        for (int i = 0; i < 7; i++) {
+            if (strcmp(corredores[i].Superior_Direita.Produto_armazenado.nome, input) == 0) {
+                printf("Localização: %s | Produto: %s | Quantidade: %d\n",
+                       corredores[i].Superior_Direita.localizacao,
+                       corredores[i].Superior_Direita.Produto_armazenado.nome,
+                       corredores[i].Superior_Direita.Produto_armazenado.quantidade);
+                verificador = 1;
+            }
+            if (strcmp(corredores[i].Inferior_Direita.Produto_armazenado.nome, input) == 0) {
+                printf("Localização: %s | Produto: %s | Quantidade: %d\n",
+                       corredores[i].Inferior_Direita.localizacao,
+                       corredores[i].Inferior_Direita.Produto_armazenado.nome,
+                       corredores[i].Inferior_Direita.Produto_armazenado.quantidade);
+                verificador = 1;
+            }
+            if (strcmp(corredores[i].Superior_Esquerda.Produto_armazenado.nome, input) == 0) {
+                printf("Localização: %s | Produto: %s | Quantidade: %d\n",
+                       corredores[i].Superior_Esquerda.localizacao,
+                       corredores[i].Superior_Esquerda.Produto_armazenado.nome,
+                       corredores[i].Superior_Esquerda.Produto_armazenado.quantidade);
+                verificador = 1;
+            }
+            if (strcmp(corredores[i].Inferior_Esquerda.Produto_armazenado.nome, input) == 0) {
+                printf("Localização: %s | Produto: %s | Quantidade: %d\n",
+                       corredores[i].Inferior_Esquerda.localizacao,
+                       corredores[i].Inferior_Esquerda.Produto_armazenado.nome,
+                       corredores[i].Inferior_Esquerda.Produto_armazenado.quantidade);
+                verificador = 1;
+            }
+        }
+
+        if (verificador == 0) {
+            printf("Produto não encontrado em Mercado!\n");
+        }
+    } else if (opcao == 2) {
+        printf("Qual a localização que deseja pesquisar?\n");
+        getchar();
+        fgets(input, sizeof(input), stdin);
+
+        size_t len = strlen(input);
+        if (len > 0 && input[len - 1] == '\n') {
+            input[len - 1] = '\0';
+        }
+
+        for (int i = 0; i < 7; i++) {
+            if (strcmp(corredores[i].Superior_Direita.localizacao, input) == 0) {
+                printf("Localização: %s | Produto: %s | Quantidade: %d\n",
+                       corredores[i].Superior_Direita.localizacao,
+                       corredores[i].Superior_Direita.Produto_armazenado.nome,
+                       corredores[i].Superior_Direita.Produto_armazenado.quantidade);
+                verificador = 1;
+            }
+            if (strcmp(corredores[i].Inferior_Direita.localizacao, input) == 0) {
+                printf("Localização: %s | Produto: %s | Quantidade: %d\n",
+                       corredores[i].Inferior_Direita.localizacao,
+                       corredores[i].Inferior_Direita.Produto_armazenado.nome,
+                       corredores[i].Inferior_Direita.Produto_armazenado.quantidade);
+                verificador = 1;
+            }
+            if (strcmp(corredores[i].Superior_Esquerda.localizacao, input) == 0) {
+                printf("Localização: %s | Produto: %s | Quantidade: %d\n",
+                       corredores[i].Superior_Esquerda.localizacao,
+                       corredores[i].Superior_Esquerda.Produto_armazenado.nome,
+                       corredores[i].Superior_Esquerda.Produto_armazenado.quantidade);
+                verificador = 1;
+            }
+            if (strcmp(corredores[i].Inferior_Esquerda.localizacao, input) == 0) {
+                printf("Localização: %s | Produto: %s | Quantidade: %d\n",
+                       corredores[i].Inferior_Esquerda.localizacao,
+                       corredores[i].Inferior_Esquerda.Produto_armazenado.nome,
+                       corredores[i].Inferior_Esquerda.Produto_armazenado.quantidade);
+                verificador = 1;
+            }
+        }
+
+        if (verificador == 0) {
+            printf("Nenhum produto encontrado para a localização fornecida!\n");
+        }
+    } else {
+        printf("Opção inválida!\n");
     }
-
-    for (int i=0; i<7; i++){
-        
-        if ((strcmp(corredores[i].Superior_Direita.Produto_armazenado.nome, produto) == 0)){
-            
-             printf("Localização: %s | Produto: %s | Quantidade: %d\n",
-               corredores[i].Superior_Direita.localizacao,
-               corredores[i].Superior_Direita.Produto_armazenado.nome,
-               corredores[i].Superior_Direita.Produto_armazenado.quantidade);
-            
-            verificador=1;
-        };
-        
-        if (strcmp(corredores[i].Inferior_Direita.Produto_armazenado.nome, produto) == 0){
-            
-            printf("  Localização: %s | Produto: %s | Quantidade: %d\n",
-               corredores[i].Inferior_Direita.localizacao,
-               corredores[i].Inferior_Direita.Produto_armazenado.nome,
-               corredores[i].Inferior_Direita.Produto_armazenado.quantidade);
-            verificador=1;
-        };
-
-         if (strcmp(corredores[i].Superior_Esquerda.Produto_armazenado.nome, produto) == 0){
-            
-            printf("  Localização: %s | Produto: %s | Quantidade: %d\n",
-               corredores[i].Superior_Esquerda.localizacao,
-               corredores[i].Superior_Esquerda.Produto_armazenado.nome,
-               corredores[i].Superior_Esquerda.Produto_armazenado.quantidade);
-            verificador=1;
-        };
-
-        if (strcmp(corredores[i].Inferior_Esquerda.Produto_armazenado.nome, produto) == 0){
-            
-             printf("  Localização: %s | Produto: %s | Quantidade: %d\n",
-               corredores[i].Inferior_Esquerda.localizacao,
-               corredores[i].Inferior_Esquerda.Produto_armazenado.nome,
-               corredores[i].Inferior_Esquerda.Produto_armazenado.quantidade);
-            verificador=1;
-        };
-    }
-    if (verificador==0){
-        printf("Produto não encontrado em Mercado!");
-    };
 }
 
 void InserirProduto(Estoque *Mercado) {
     produto Newproduto;
     char Endereco[10];
-    char Nunloc[4] = {'1', '2', '3', '4'};
 
     printf("Nome do produto: ");
     getchar(); // Limpa o buffer
@@ -172,19 +215,88 @@ void InserirProduto(Estoque *Mercado) {
 
     // Determinar a prateleira com base em Endereco[1]
     if (corredor_selecionado) {
+        prateleira *prateleira_selecionada = NULL;
+
         if (Endereco[1] == '1') {
-            corredor_selecionado->Superior_Direita.Produto_armazenado = Newproduto;
+            prateleira_selecionada = &corredor_selecionado->Superior_Direita;
         } else if (Endereco[1] == '2') {
-            corredor_selecionado->Inferior_Direita.Produto_armazenado = Newproduto;
+            prateleira_selecionada = &corredor_selecionado->Inferior_Direita;
         } else if (Endereco[1] == '3') {
-            corredor_selecionado->Superior_Esquerda.Produto_armazenado = Newproduto;
+            prateleira_selecionada = &corredor_selecionado->Superior_Esquerda;
         } else if (Endereco[1] == '4') {
-            corredor_selecionado->Inferior_Esquerda.Produto_armazenado = Newproduto;
+            prateleira_selecionada = &corredor_selecionado->Inferior_Esquerda;
         } else {
             printf("Prateleira inválida!\n");
+            return;
         }
+
+        // Verificar se a prateleira é uma Zona De Peking
+        if (strcmp(prateleira_selecionada->Produto_armazenado.nome, "Zona De Peking") == 0) {
+            printf("A localização %s é uma Zona De Peking e não pode ser alterada!\n", Endereco);
+            return;
+        }
+
+        // Inserir o produto na prateleira selecionada
+        prateleira_selecionada->Produto_armazenado = Newproduto;
+        printf("Produto %s inserido na localização %s com sucesso!\n", Newproduto.nome, Endereco);
     }
 }
+
+
+void RemoverProduto(Estoque *Mercado) {
+    char produtoRemover[50];
+    int verificador = 0;
+    produto ProdutoInicial;
+    ProdutoInicial.quantidade = 0;
+    strcpy(ProdutoInicial.nome, "Nulo");
+
+    printf("Qual o nome do produto que você deseja remover: ");
+    getchar();
+    fgets(produtoRemover, sizeof(produtoRemover), stdin);
+
+    size_t len = strlen(produtoRemover);
+    if (len > 0 && produtoRemover[len - 1] == '\n') {
+        produtoRemover[len - 1] = '\0';
+    }
+
+    corredor *corredores[7] = {
+        &Mercado->corredor_A, &Mercado->corredor_B, &Mercado->corredor_C,
+        &Mercado->corredor_D, &Mercado->corredor_E, &Mercado->corredor_F,
+        &Mercado->corredor_G
+    };
+
+    for (int i = 0; i < 7; i++) {
+        if (strcmp(corredores[i]->Superior_Direita.Produto_armazenado.nome, produtoRemover) == 0) {
+            printf("Produto removido da localização: %s\n", corredores[i]->Superior_Direita.localizacao);
+            corredores[i]->Superior_Direita.Produto_armazenado = ProdutoInicial;
+            verificador = 1;
+        }
+
+        if (strcmp(corredores[i]->Inferior_Direita.Produto_armazenado.nome, produtoRemover) == 0) {
+            printf("Produto removido da localização: %s\n", corredores[i]->Inferior_Direita.localizacao);
+            corredores[i]->Inferior_Direita.Produto_armazenado = ProdutoInicial;
+            verificador = 1;
+        }
+
+        if (strcmp(corredores[i]->Superior_Esquerda.Produto_armazenado.nome, produtoRemover) == 0) {
+            printf("Produto removido da localização: %s\n", corredores[i]->Superior_Esquerda.localizacao);
+            corredores[i]->Superior_Esquerda.Produto_armazenado = ProdutoInicial;
+            verificador = 1;
+        }
+
+        if (strcmp(corredores[i]->Inferior_Esquerda.Produto_armazenado.nome, produtoRemover) == 0) {
+            printf("Produto removido da localização: %s\n", corredores[i]->Inferior_Esquerda.localizacao);
+            corredores[i]->Inferior_Esquerda.Produto_armazenado = ProdutoInicial;
+            verificador = 1;
+        }
+    }
+
+    if (verificador == 0) {
+        printf("Produto não encontrado no mercado!\n");
+    }
+}
+
+
 int Menu_Replay(int opcao){
     
     int num=0;
@@ -230,6 +342,10 @@ void Menu(Estoque Mercado){
             InserirProduto(&Mercado);
             opcao = Menu_Replay(opcao);
         };
+        if (opcao==4){
+            RemoverProduto(&Mercado);
+            opcao = Menu_Replay(opcao);
+        };
     }
 }
 
@@ -238,9 +354,11 @@ int main() {
     Produto_inicial.quantidade = 0;
     strcpy(Produto_inicial.nome, "Nulo");
 
+    produto ZonaDePeking;
+    ZonaDePeking.quantidade = 10; // Quantidade exemplo
+    strcpy(ZonaDePeking.nome, "Zona De Peking");
+
     prateleira Prateleira_Inicial;
-    strcpy(Prateleira_Inicial.localizacao, "00");
-    Prateleira_Inicial.Produto_armazenado = Produto_inicial;
 
     corredor corredor_inicial;
     Estoque Mercado;
@@ -249,17 +367,29 @@ int main() {
 
     for (int i = 0; i < 7; i++) {
         for (int a = 0; a < 4; a++) {
-            char numero_loque = (a+1) + '0'; // Converte o índice para caractere
+            char numero_loque = (a + 1) + '0'; // Converte o índice para caractere
+            strcpy(Prateleira_Inicial.localizacao, "00");
+
+            // Verifica se a prateleira é de número par
+            if ((a + 1) % 2 == 0) {
+                Prateleira_Inicial.Produto_armazenado = ZonaDePeking;
+            } else {
+                Prateleira_Inicial.Produto_armazenado = Produto_inicial;
+            }
+
+            // Define o endereço da prateleira
             Prateleira_Inicial.localizacao[0] = Letras[i];
             Prateleira_Inicial.localizacao[1] = numero_loque;
             Prateleira_Inicial.localizacao[2] = '\0'; // Garante que a string seja válida
 
+            // Atribui a prateleira ao corredor
             if (a == 0) corredor_inicial.Superior_Direita = Prateleira_Inicial;
             if (a == 1) corredor_inicial.Inferior_Direita = Prateleira_Inicial;
             if (a == 2) corredor_inicial.Superior_Esquerda = Prateleira_Inicial;
             if (a == 3) corredor_inicial.Inferior_Esquerda = Prateleira_Inicial;
         }
 
+        // Atribui o corredor ao estoque
         if (i == 0) Mercado.corredor_A = corredor_inicial;
         if (i == 1) Mercado.corredor_B = corredor_inicial;
         if (i == 2) Mercado.corredor_C = corredor_inicial;
@@ -269,7 +399,6 @@ int main() {
         if (i == 6) Mercado.corredor_G = corredor_inicial;
     }
 
-   
     Menu(Mercado);
 
     return 0;
